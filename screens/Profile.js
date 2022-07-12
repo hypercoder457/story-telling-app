@@ -46,7 +46,7 @@ export default class Profile extends React.Component {
   toggleTheme = () => {
     const userUid = this.getUser().uid;
     const usersRef = firebase.database().ref(`/users/${userUid}`);
-    if (! this.state.lightTheme) {
+    if (!this.state.lightTheme) {
       usersRef.set({
         current_theme: "light"
       })
@@ -67,7 +67,7 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    if (this.state.fontsLoaded !== true) {
+    if (!this.state.fontsLoaded) {
       return <AppLoading />;
     };
     return (
@@ -90,7 +90,7 @@ export default class Profile extends React.Component {
         }>Email: {this.getUser().email}</Text>
         <Text style={
           this.state.lightTheme ? styles.userInfoLight : styles.userInfo
-        }>Your current theme is set to: {this.state.lightTheme ? "light": "dark"}</Text>
+        }>Your current theme is set to: {this.state.lightTheme ? "light" : "dark"}</Text>
         <TouchableOpacity
           style={styles.themeToggleButton}
           onPress={() => this.toggleTheme()}

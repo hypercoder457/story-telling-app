@@ -26,8 +26,6 @@ let customFonts = {
   "Bubblegum-Sans": require("../assets/fonts/BubblegumSans-Regular.ttf")
 };
 
-let stories = require("./temp_stories.json");
-
 export default class Feed extends React.Component {
   constructor(props) {
     super(props);

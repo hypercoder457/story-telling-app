@@ -4,7 +4,9 @@ import { Alert, Platform } from "react-native";
 import firebase from "firebase/app";
 import "firebase/auth";
 
-export default class Logout extends React.Component {
+import { withNavigation } from "react-navigation";
+
+class Logout extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -13,7 +15,7 @@ export default class Logout extends React.Component {
         if (Platform.OS === "ios" || Platform.OS === "android") {
             Alert.alert('Logging out', "Are you sure you want to logout",
                 [{ text: "Yes, I want to logout", onPress: () => firebase.auth().signOut() },
-                { text: "Cancel", onPress: () => this.props.navigation.goBack() }],
+                { text: "Cancel", onPress: () => this.props.navigation.goBack(), style: "cancel" }],
             );
         } else {
             firebase.auth().signOut();
@@ -24,3 +26,5 @@ export default class Logout extends React.Component {
         return null;
     }
 }
+
+export default withNavigation(Logout);

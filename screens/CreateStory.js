@@ -10,8 +10,7 @@ import {
   Image,
   ScrollView,
   TextInput,
-  Alert,
-  Button
+  Alert
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -99,17 +98,17 @@ export default class CreateStory extends React.Component {
   }
 
   render() {
-    const dropDownItems = [
-      { label: "Image 1", value: "image_1" },
-      { label: "Image 2", value: "image_2" },
-      { label: "Image 3", value: "image_3" },
-      { label: "Image 4", value: "image_4" },
-      { label: "Image 5", value: "image_5" }
-    ];
-
     if (!this.state.fontsLoaded) {
       return <AppLoading />;
     } else {
+      const dropDownItems = [
+        { label: "Image 1", value: "image_1" },
+        { label: "Image 2", value: "image_2" },
+        { label: "Image 3", value: "image_3" },
+        { label: "Image 4", value: "image_4" },
+        { label: "Image 5", value: "image_5" }
+      ];
+
       let previewImages = {
         image_1: require("../assets/story_image_1.png"),
         image_2: require("../assets/story_image_2.png"),
@@ -147,11 +146,7 @@ export default class CreateStory extends React.Component {
                 <DropDownPicker
                   items={dropDownItems}
                   defaultValue={this.state.previewImage}
-                  containerStyle={{
-                    height: 40,
-                    borderRadius: 20,
-                    marginBottom: 10
-                  }}
+                  containerStyle={styles.dropDownContainer}
                   onOpen={() => {
                     this.setState({ dropdownHeight: 170 });
                   }}
@@ -162,15 +157,19 @@ export default class CreateStory extends React.Component {
                   itemStyle={{
                     justifyContent: "flex-start"
                   }}
-                  dropDownStyle={{ backgroundColor: "#2f345d" }}
-                  labelStyle={{
-                    color: "white",
-                    fontFamily: "Bubblegum-Sans"
+                  dropDownStyle={{
+                    backgroundColor: this.state.lightTheme ? "#eee" : "#2f345d"
                   }}
-                  arrowStyle={{
-                    color: "white",
-                    fontFamily: "Bubblegum-Sans"
-                  }}
+                  labelStyle={
+                    this.state.lightTheme
+                      ? styles.dropdownLabelLight
+                      : styles.dropdownLabel
+                  }
+                  arrowStyle={
+                    this.state.lightTheme
+                      ? styles.dropdownLabelLight
+                      : styles.dropdownLabel
+                  }
                   onChangeItem={item =>
                     this.setState({
                       previewImage: item.value
@@ -226,13 +225,11 @@ export default class CreateStory extends React.Component {
                 placeholderTextColor={this.state.lightTheme ? "black" : "white"}
               />
 
-              <View style={styles.submitButton}>
-                <Button
-                  onPress={() => this.addStory()}
-                  title="Submit"
-                  color="orange"
-                />
-              </View>
+              <TouchableOpacity
+                onPress={() => this.addStory()}
+                style={styles.submitButton}>
+                <Text style={{ color: "white", fontFamily: "CedarvilleCursive" }}>Submit</Text>
+              </TouchableOpacity>
             </ScrollView>
           </View>
           <View style={{ flex: 0.08 }} />
@@ -285,6 +282,12 @@ const styles = StyleSheet.create({
   fieldsContainer: {
     flex: 0.85
   },
+  dropDownContainer: {
+    height: 40,
+    borderRadius: RFValue(20),
+    marginBottom: RFValue(20),
+    marginHorizontal: RFValue(10)
+  },
   previewImage: {
     width: "93%",
     height: RFValue(250),
@@ -317,6 +320,14 @@ const styles = StyleSheet.create({
   inputTextBig: {
     textAlignVertical: "top",
     padding: RFValue(5)
+  },
+  dropdownLabel: {
+    color: "white",
+    fontFamily: "Bubblegum-Sans"
+  },
+  dropdownLabelLight: {
+    color: "black",
+    fontFamily: "Bubblegum-Sans"
   },
   submitButton: {
     marginTop: RFValue(20),
