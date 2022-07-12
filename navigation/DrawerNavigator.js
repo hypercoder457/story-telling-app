@@ -21,7 +21,7 @@ const DrawerNavigator = () => {
       .ref(`/users/${firebase.auth().currentUser.uid}/current_theme`)
       .on("value", data => {
         theme = data.val();
-        setLightTheme(theme === "light" ? true : false);
+        setLightTheme(theme === "light");
       });
   }, [])
 

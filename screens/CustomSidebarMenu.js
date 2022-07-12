@@ -23,12 +23,11 @@ export default class CustomSidebarMenu extends React.Component {
             .ref(`/users/${firebase.auth().currentUser.uid}/current_theme`)
             .on("value", data => {
                 theme = data.val();
-                this.setState({ lightTheme: theme === "light" ? true : false });
+                this.setState({ lightTheme: theme === "light" });
             });
     }
 
     render() {
-        let props = this.props;
         return (
             <View
                 style={{
